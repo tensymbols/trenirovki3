@@ -18,11 +18,36 @@ public class VagonSortLite {
         Stack<Integer> Tupik = new Stack<>();
         int currNum = 1;
         int currCar = Cars.poll();
-        Tupik.push(currCar);
-        while (!Cars.isEmpty()){
-            while(currCar!=currNum){
 
+        Tupik.push(currCar);
+        while(!Cars.isEmpty() && currNum <=N || !Tupik.isEmpty()){
+            while(currCar!=currNum && !Cars.isEmpty()){
+
+                currCar= Cars.poll();
+                Tupik.push(currCar);
+            }
+
+            if(currCar!=currNum) {
+                while(currCar!=currNum && !Tupik.isEmpty()){
+
+                    currCar= Tupik.pop();
+
+                }
+            }
+            if(currCar!=currNum) break;
+
+            if(Tupik.isEmpty() && Cars.isEmpty()) break;
+            if(!Tupik.isEmpty()) Tupik.pop();
+            currNum++;
+            if(!Tupik.isEmpty() && Tupik.peek() == currNum) {
+                while (!Tupik.isEmpty() && Tupik.peek() == currNum && currNum <= N ) {
+
+                    currCar = Tupik.pop();
+                    currNum++;
+                }
             }
         }
+        if(currNum<N) System.out.println("NO");
+        else System.out.println("YES");
     }
 }
